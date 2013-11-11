@@ -125,6 +125,9 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     public static final String USER_AGENT               = "pref_key_mms_user_agent";
     public static final String USER_AGENT_CUSTOM        = "pref_key_mms_user_agent_custom";
 
+    // Split sms
+    public static final String SMS_SPLIT_COUNTER        = "pref_key_sms_split_counter";
+
     // QuickMessage
     public static final String QUICKMESSAGE_ENABLED      = "pref_key_quickmessage";
     public static final String QM_LOCKSCREEN_ENABLED     = "pref_key_qm_lockscreen";
@@ -155,6 +158,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     private Preference mSmsDeliveryReportPref;
     private Preference mSmsDeliveryReportPrefSub1;
     private Preference mSmsDeliveryReportPrefSub2;
+    private SwitchPreference mSmsSplitCounterPref;
     private Preference mMmsLimitPref;
     private Preference mMmsDeliveryReportPref;
     private Preference mMmsGroupMmsPref;
@@ -305,6 +309,7 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mSmsDeliveryReportPref = findPreference("pref_key_sms_delivery_reports");
         mSmsDeliveryReportPrefSub1 = findPreference("pref_key_sms_delivery_reports_slot1");
         mSmsDeliveryReportPrefSub2 = findPreference("pref_key_sms_delivery_reports_slot2");
+        mSmsSplitCounterPref = (SwitchPreference) findPreference("pref_key_sms_split_counter");
         mMmsDeliveryReportPref = findPreference("pref_key_mms_delivery_reports");
         mMmsGroupMmsPref = findPreference("pref_key_mms_group_mms");
         mMmsReadReportPref = findPreference("pref_key_mms_read_reports");
@@ -474,6 +479,13 @@ public class MessagingPreferenceActivity extends PreferenceActivity
     }
 
     private void setMmsRelatedPref() {
+        if (!MmsConfig.getSplitSmsEnabled()) {
+            // SMS Split disabled, remove SplitCounter pref
+            PreferenceCategory smsCategory =
+            (PreferenceCategory)findPreference("pref_key_sms_settings");
+            smsCategory.removePreference(mSmsSplitCounterPref);
+        }
+
         if (!MmsConfig.getMmsEnabled()) {
             // No Mms, remove all the mms-related preferences
             getPreferenceScreen().removePreference(mMmsPrefCategory);
