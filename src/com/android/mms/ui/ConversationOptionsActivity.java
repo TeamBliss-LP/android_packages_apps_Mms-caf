@@ -250,8 +250,8 @@ public class ConversationOptionsActivity extends Activity {
         mFragment = new ConversationOptionsFragment();
         getFragmentManager().beginTransaction().replace(android.R.id.content, mFragment).commit();
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+       // ActionBar actionBar = getActionBar();
+       // actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
