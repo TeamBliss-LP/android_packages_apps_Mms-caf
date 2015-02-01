@@ -1130,7 +1130,7 @@ public class MessagingNotification {
         NotificationInfo mostRecentNotification = notificationSet.first();
 
         final NotificationCompat.Builder noti = new NotificationCompat.Builder(context)
-                .setWhen(mostRecentNotification.mTimeMillis);
+                .setWhen(mostRecentNotification.mTimeMillis).setAutoCancel(true);
 
         if (isNew) {
             noti.setTicker(mostRecentNotification.mTicker);
