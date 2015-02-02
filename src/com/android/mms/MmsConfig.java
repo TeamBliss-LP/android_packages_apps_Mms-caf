@@ -55,7 +55,7 @@ public class MmsConfig {
      * Whether to hide MMS functionality from the user (i.e. SMS only).
      */
     private static boolean mTransIdEnabled = false;
-    private static boolean mMmsEnabled = true;                  // default to true
+    private static int mMmsEnabled = 1;                         // default to true
     private static int mMaxMessageSize = 300 * 1024;            // default to 300k max size
     private static String mUserAgent = DEFAULT_USER_AGENT;
     private static String mUaProfTagName = DEFAULT_HTTP_KEY_X_WAP_PROFILE;
@@ -81,12 +81,6 @@ public class MmsConfig {
     // than a single segment (i.e. 140 chars), then the message will turn into and be sent
     // as an mms message. This feature exists for carriers that don't support multi-part sms's.
     private static boolean mEnableMultipartSMS = true;
-    
-    // By default, the radio splits multipart sms, not the application. If the carrier or radio
-    // does not support this, and the recipient gets garbled text, set this to true. If this is
-    // true and mEnableMultipartSMS is false, the mSmsToMmsTextThreshold will be observed,
-    // converting to mms if we reach the required number of segments.
-    private static boolean mEnableSplitSMS = false;
 
     // If mEnableMultipartSMS is true and mSmsToMmsTextThreshold > 1, then multi-part SMS messages
     // will be converted into a single mms message. For example, if the mms_config.xml file
@@ -178,7 +172,7 @@ public class MmsConfig {
     }
 
     public static boolean getMmsEnabled() {
-        return mMmsEnabled;
+        return mMmsEnabled == 1 ? true : false;
     }
 
     public static int getMaxMessageSize() {
@@ -263,10 +257,6 @@ public class MmsConfig {
 
     public static boolean getMultipartSmsEnabled() {
         return mEnableMultipartSMS;
-    }
-
-    public static boolean getSplitSmsEnabled() {
-        return mEnableSplitSMS;
     }
 
     public static boolean getSlideDurationEnabled() {
@@ -375,7 +365,7 @@ public class MmsConfig {
                     if ("bool".equals(tag)) {
                         // bool config tags go here
                         if ("enabledMMS".equalsIgnoreCase(value)) {
-                            mMmsEnabled = "true".equalsIgnoreCase(text);
+                            mMmsEnabled = "true".equalsIgnoreCase(text) ? 1 : 0;
                         } else if ("enabledTransID".equalsIgnoreCase(value)) {
                             mTransIdEnabled = "true".equalsIgnoreCase(text);
                         } else if ("enabledNotifyWapMMSC".equalsIgnoreCase(value)) {
@@ -386,8 +376,6 @@ public class MmsConfig {
                             mAllowAttachAudio = "true".equalsIgnoreCase(text);
                         } else if ("enableMultipartSMS".equalsIgnoreCase(value)) {
                             mEnableMultipartSMS = "true".equalsIgnoreCase(text);
-                        } else if ("enableSplitSMS".equalsIgnoreCase(value)) {
-                            mEnableSplitSMS = "true".equalsIgnoreCase(text);
                         } else if ("enableSlideDuration".equalsIgnoreCase(value)) {
                             mEnableSlideDuration = "true".equalsIgnoreCase(text);
                         } else if ("enableMMSReadReports".equalsIgnoreCase(value)) {
