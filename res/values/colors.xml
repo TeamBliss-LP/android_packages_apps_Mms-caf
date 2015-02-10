@@ -79,5 +79,8 @@
 
     <color name="actionbar_background_color">@color/mms_theme_color</color>
     <color name="floating_action_button_icon_color">#ffffff</color>
+    
+    <!-- Hardcoded Background -->
+    <color name="background">#ffffff</color>    
 
 </resources>
