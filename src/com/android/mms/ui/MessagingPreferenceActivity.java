@@ -336,9 +336,16 @@ public class MessagingPreferenceActivity extends PreferenceActivity
         mVibratePref = (SwitchPreference) findPreference(NOTIFICATION_VIBRATE);
         mEnableHeadsUpModePref = (SwitchPreference) findPreference(HEADS_UP_MODE_ENABLED);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (mVibratePref != null && (vibrator == null || !vibrator.hasVibrator())) {
-            mNotificationPrefCategory.removePreference(mVibratePref);
-            mVibratePref = null;
+        if (vibrator == null || !vibrator.hasVibrator()) {
+            if (mVibratePref != null) {
+                mNotificationPrefCategory.removePreference(mVibratePref);
+                mVibratePref = null;
+            }
+
+            Preference patternPref = findPreference(NOTIFICATION_VIBRATE_PATTERN);
+            if (patternPref != null) {
+                mNotificationPrefCategory.removePreference(patternPref);
+            }
         }
         mRingtonePref = (RingtonePreference) findPreference(NOTIFICATION_RINGTONE);
         mSmsTemplate = findPreference("pref_key_message_template");
