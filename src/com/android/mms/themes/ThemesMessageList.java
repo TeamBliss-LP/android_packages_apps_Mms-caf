@@ -42,7 +42,6 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.preference.TextSizeSeekBarPreference;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -56,6 +55,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.android.mms.R;
+import com.android.mms.bliss.SeekBarPreference;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,9 +87,9 @@ public class ThemesMessageList extends PreferenceActivity implements
     private SwitchPreference mUseContact;
     private SwitchPreference mShowAvatar;
     private SwitchPreference mBubbleFillParent;
-    private TextSizeSeekBarPreference mContactFontSize;
-    private TextSizeSeekBarPreference mFontSize;
-    private TextSizeSeekBarPreference mDateFontSize;
+    private SeekBarPreference mContactFontSize;
+    private SeekBarPreference mFontSize;
+    private SeekBarPreference mDateFontSize;
     private EditTextPreference mAddSignature;
     private ListPreference mTextLayout;
     private ListPreference mBubbleType;
@@ -109,7 +109,6 @@ public class ThemesMessageList extends PreferenceActivity implements
     protected void onResume() {
         super.onResume();
         setListeners();
-        setDefaultValues();
         updateSummaries();
     }
 
@@ -126,9 +125,9 @@ public class ThemesMessageList extends PreferenceActivity implements
         mShowAvatar = (SwitchPreference) prefSet.findPreference(Constants.PREF_SHOW_AVATAR);
         mBubbleFillParent = (SwitchPreference) prefSet.findPreference(Constants.PREF_BUBBLE_FILL_PARENT);
         mTextLayout = (ListPreference) findPreference(Constants.PREF_TEXT_CONV_LAYOUT);
-        mContactFontSize = (TextSizeSeekBarPreference) findPreference(Constants.PREF_CONTACT_FONT_SIZE);
-        mFontSize = (TextSizeSeekBarPreference) findPreference(Constants.PREF_FONT_SIZE);
-        mDateFontSize = (TextSizeSeekBarPreference) findPreference(Constants.PREF_DATE_FONT_SIZE);
+        mContactFontSize = (SeekBarPreference) findPreference(Constants.PREF_CONTACT_FONT_SIZE);
+        mFontSize = (SeekBarPreference) findPreference(Constants.PREF_FONT_SIZE);
+        mDateFontSize = (SeekBarPreference) findPreference(Constants.PREF_DATE_FONT_SIZE);
         mBubbleType = (ListPreference) findPreference(Constants.PREF_BUBBLE_TYPE);
         mMessageBackground = (ColorPickerPreference) findPreference(Constants.PREF_MESSAGE_BG);
         mRecvTextBgColor = (ColorPickerPreference) findPreference(Constants.PREF_RECV_TEXT_BG);
@@ -142,18 +141,6 @@ public class ThemesMessageList extends PreferenceActivity implements
                 Constants.PREF_SENT_CONTACT_COLOR);
         mSentDateColor = (ColorPickerPreference) findPreference(Constants.PREF_SENT_DATE_COLOR);
         mCustomImage = findPreference("pref_custom_image");
-    }
-
-    private void setDefaultValues() {
-        mContactFontSize.setMax(22);
-        mContactFontSize.setMin(10);
-        mContactFontSize.setProgress(sp.getInt(Constants.PREF_CONTACT_FONT_SIZE, 16));
-        mFontSize.setMax(22);
-        mFontSize.setMin(10);
-        mFontSize.setProgress(sp.getInt(Constants.PREF_FONT_SIZE, 16));
-        mDateFontSize.setMax(22);
-        mDateFontSize.setMin(10);
-        mDateFontSize.setProgress(sp.getInt(Constants.PREF_DATE_FONT_SIZE, 16));
     }
 
     private void setListeners() {
@@ -256,16 +243,16 @@ public class ThemesMessageList extends PreferenceActivity implements
             mTextLayout.setSummary(mTextLayout.getEntries()[index]);
             result = true;
         } else if (preference == mContactFontSize) {
-            int value = Integer.parseInt((String) newValue);
-            mContactFontSize.setProgress(sp.getInt(Constants.PREF_CONTACT_FONT_SIZE, value));
+            int width = ((Integer)newValue).intValue();
+            sp.getInt(Constants.PREF_CONTACT_FONT_SIZE, width);
             result = true;
         } else if (preference == mFontSize) {
-            int value = Integer.parseInt((String) newValue);
-            mFontSize.setProgress(sp.getInt(Constants.PREF_FONT_SIZE, value));
+            int width = ((Integer)newValue).intValue();
+            sp.getInt(Constants.PREF_FONT_SIZE, width);
             result = true;
         } else if (preference == mDateFontSize) {
-            int value = Integer.parseInt((String) newValue);
-            mDateFontSize.setProgress(sp.getInt(Constants.PREF_DATE_FONT_SIZE, value));
+            int width = ((Integer)newValue).intValue();
+            sp.getInt(Constants.PREF_DATE_FONT_SIZE, width);
             result = true;
         } else if (preference == mBubbleType) {
             int index = mBubbleType.findIndexOfValue((String) newValue);

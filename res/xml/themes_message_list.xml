@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mms="http://schemas.android.com/apk/res/com.android.mms">
 
     <ListPreference
         android:key="pref_text_conv_layout"
@@ -49,21 +51,33 @@
         android:key="pref_font_sizes"
         android:title="@string/font_sizes_title">
 
-        <TextSizeSeekBarPreference
+        <com.android.mms.bliss.SeekBarPreference
             android:key="pref_contact_font_size"
             android:title="@string/contact_font_size_title"
-            android:defaultValue="16"
+            android:max="23"
+            mms:defaultVal="16"
+            mms:minimum="4"
+            mms:unitsLeft=""
+            mms:unitsRight="dp"
             android:dependency="pref_use_contact" />
 
-        <TextSizeSeekBarPreference
+        <com.android.mms.bliss.SeekBarPreference
             android:key="pref_font_size"
             android:title="@string/font_size_title"
-            android:defaultValue="16" />
+            android:max="23"
+            mms:defaultVal="16"
+            mms:minimum="4"
+            mms:unitsLeft=""
+            mms:unitsRight="dp" />
 
-        <TextSizeSeekBarPreference
+        <com.android.mms.bliss.SeekBarPreference
             android:key="pref_date_font_size"
             android:title="@string/date_font_size_title"
-            android:defaultValue="16" />
+            android:max="23"
+            mms:defaultVal="16"
+            mms:minimum="4"
+            mms:unitsLeft=""
+            mms:unitsRight="dp" />
 
     </PreferenceCategory>
 

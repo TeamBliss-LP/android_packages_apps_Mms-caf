@@ -41,7 +41,6 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.preference.TextSizeSeekBarPreference;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -55,6 +54,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.android.mms.R;
+import com.android.mms.bliss.SeekBarPreference;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,9 +87,9 @@ public class ThemesConversationList extends PreferenceActivity implements
     private ColorPickerPreference mUnreadSubject;
     private ColorPickerPreference mUnreadDate;
     private ColorPickerPreference mUnreadCount;
-    private TextSizeSeekBarPreference mContactFontSize;
-    private TextSizeSeekBarPreference mFontSize;
-    private TextSizeSeekBarPreference mDateFontSize;
+    private SeekBarPreference mContactFontSize;
+    private SeekBarPreference mFontSize;
+    private SeekBarPreference mDateFontSize;
 
     private Preference mCustomImage;
 
@@ -107,7 +107,6 @@ public class ThemesConversationList extends PreferenceActivity implements
     protected void onResume() {
         super.onResume();
         setListeners();
-        setDefaultValues();
         updateSummaries();
     }
 
@@ -125,10 +124,10 @@ public class ThemesConversationList extends PreferenceActivity implements
                 Constants.FLOAT_BUTTON);
         mComposeButton = (ColorPickerPreference) findPreference(
                 Constants.COMPOSE_BUTTON);
-        mContactFontSize = (TextSizeSeekBarPreference) findPreference(
+        mContactFontSize = (SeekBarPreference) findPreference(
                 Constants.PREF_CONV_CONTACT_FONT_SIZE);
-        mFontSize = (TextSizeSeekBarPreference) findPreference(Constants.PREF_CONV_FONT_SIZE);
-        mDateFontSize = (TextSizeSeekBarPreference) findPreference(Constants.PREF_CONV_DATE_FONT_SIZE);
+        mFontSize = (SeekBarPreference) findPreference(Constants.PREF_CONV_FONT_SIZE);
+        mDateFontSize = (SeekBarPreference) findPreference(Constants.PREF_CONV_DATE_FONT_SIZE);
         mReadBg = (ColorPickerPreference) findPreference(Constants.PREF_READ_BG);
         mReadContact = (ColorPickerPreference) findPreference(Constants.PREF_READ_CONTACT);
         mReadCount = (ColorPickerPreference) findPreference(Constants.PREF_READ_COUNT);
@@ -139,18 +138,6 @@ public class ThemesConversationList extends PreferenceActivity implements
         mUnreadCount = (ColorPickerPreference) findPreference(Constants.PREF_UNREAD_COUNT);
         mUnreadDate = (ColorPickerPreference) findPreference(Constants.PREF_UNREAD_DATE);
         mUnreadSubject = (ColorPickerPreference) findPreference(Constants.PREF_UNREAD_SUBJECT);
-    }
-
-    private void setDefaultValues() {
-        mContactFontSize.setMax(22);
-        mContactFontSize.setMin(10);
-        mContactFontSize.setProgress(sp.getInt(Constants.PREF_CONV_CONTACT_FONT_SIZE, 16));
-        mFontSize.setMax(22);
-        mFontSize.setMin(10);
-        mFontSize.setProgress(sp.getInt(Constants.PREF_CONV_FONT_SIZE, 16));
-        mDateFontSize.setMax(22);
-        mDateFontSize.setMin(10);
-        mDateFontSize.setProgress(sp.getInt(Constants.PREF_CONV_DATE_FONT_SIZE, 16));
     }
 
     private void setListeners() {
@@ -280,16 +267,16 @@ public class ThemesConversationList extends PreferenceActivity implements
             mUnreadSubject.setSummary(hex);
             result = true;
         } else if (preference == mContactFontSize) {
-            int value = Integer.valueOf((Integer) newValue);
-            mContactFontSize.setProgress(sp.getInt(Constants.PREF_CONV_CONTACT_FONT_SIZE, value));
+            int width = ((Integer)newValue).intValue();
+            sp.getInt(Constants.PREF_CONV_CONTACT_FONT_SIZE, width);
             result = true;
         } else if (preference == mFontSize) {
-            int value = Integer.valueOf((Integer) newValue);
-            mFontSize.setProgress(sp.getInt(Constants.PREF_CONV_FONT_SIZE, value));
+            int width = ((Integer)newValue).intValue();
+            sp.getInt(Constants.PREF_CONV_FONT_SIZE, width);
             result = true;
         } else if (preference == mDateFontSize) {
-            int value = Integer.valueOf((Integer) newValue);
-            mDateFontSize.setProgress(sp.getInt(Constants.PREF_CONV_DATE_FONT_SIZE, value));
+            int width = ((Integer)newValue).intValue();
+            sp.getInt(Constants.PREF_CONV_DATE_FONT_SIZE, width);
             result = true;
         }
         return result;
