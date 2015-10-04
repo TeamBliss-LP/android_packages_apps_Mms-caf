@@ -108,6 +108,7 @@ public class ThemesMessageList extends PreferenceActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        setDefaultValues();
         setListeners();
         updateSummaries();
     }
@@ -141,6 +142,12 @@ public class ThemesMessageList extends PreferenceActivity implements
                 Constants.PREF_SENT_CONTACT_COLOR);
         mSentDateColor = (ColorPickerPreference) findPreference(Constants.PREF_SENT_DATE_COLOR);
         mCustomImage = findPreference("pref_custom_image");
+    }
+
+    private void setDefaultValues() {
+        mContactFontSize.setValue(sp.getInt(Constants.PREF_CONTACT_FONT_SIZE, 16));
+        mFontSize.setValue(sp.getInt(Constants.PREF_FONT_SIZE, 16));
+        mDateFontSize.setValue(sp.getInt(Constants.PREF_DATE_FONT_SIZE, 16));
     }
 
     private void setListeners() {

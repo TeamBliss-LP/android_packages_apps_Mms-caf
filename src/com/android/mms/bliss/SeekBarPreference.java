@@ -70,7 +70,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
 
     private void setValuesFromXml(AttributeSet attrs) {
         mMaxValue = attrs.getAttributeIntValue(ANDROIDNS, "max", 100);
-        mMinValue = attrs.getAttributeIntValue(MMS, "min", 0);
+        mMinValue = attrs.getAttributeIntValue(MMS, "minimum", 0);
         mDefaultValue = attrs.getAttributeIntValue(MMS, "defaultVal", -1);
         mUnitsLeft = getAttributeStringValue(attrs, MMS, "unitsLeft", "");
         String units = getAttributeStringValue(attrs, MMS, "units", "");

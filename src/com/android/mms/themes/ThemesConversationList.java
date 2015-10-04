@@ -106,6 +106,7 @@ public class ThemesConversationList extends PreferenceActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        setDefaultValues();
         setListeners();
         updateSummaries();
     }
@@ -138,6 +139,12 @@ public class ThemesConversationList extends PreferenceActivity implements
         mUnreadCount = (ColorPickerPreference) findPreference(Constants.PREF_UNREAD_COUNT);
         mUnreadDate = (ColorPickerPreference) findPreference(Constants.PREF_UNREAD_DATE);
         mUnreadSubject = (ColorPickerPreference) findPreference(Constants.PREF_UNREAD_SUBJECT);
+    }
+
+    private void setDefaultValues() {
+        mContactFontSize.setValue(sp.getInt(Constants.PREF_CONV_CONTACT_FONT_SIZE, 16));
+        mFontSize.setValue(sp.getInt(Constants.PREF_CONV_FONT_SIZE, 16));
+        mDateFontSize.setValue(sp.getInt(Constants.PREF_CONV_DATE_FONT_SIZE, 16));
     }
 
     private void setListeners() {

@@ -11,18 +11,18 @@
         <com.android.mms.bliss.SeekBarPreference
             android:key="pref_conv_contact_font_size"
             android:title="@string/contact_font_size_title"
-            android:max="23"
+            android:max="22"
             mms:defaultVal="16"
-            mms:minimum="4"
+            mms:minimum="10"
             mms:unitsLeft=""
             mms:unitsRight="dp" />
 
         <com.android.mms.bliss.SeekBarPreference
             android:key="pref_conv_font_size"
             android:title="@string/font_size_title"
-            android:max="23"
+            android:max="22"
             mms:defaultVal="16"
-            mms:minimum="4"
+            mms:minimum="10"
             mms:unitsLeft=""
             mms:unitsRight="dp" />
 
@@ -30,9 +30,9 @@
         <com.android.mms.bliss.SeekBarPreference
             android:key="pref_conv_date_font_size"
             android:title="@string/date_font_size_title"
-            android:max="23"
+            android:max="22"
             mms:defaultVal="16"
-            mms:minimum="4"
+            mms:minimum="10"
             mms:unitsLeft=""
             mms:unitsRight="dp" />
 
